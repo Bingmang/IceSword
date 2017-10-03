@@ -1,11 +1,5 @@
-.DS_Store
-node_modules/
-npm-debug.log
-
-*.xml
-
-*.iml
-
-.vscode/launch.json
-
-.vscode/settings.json
+node_modules
+.*
+yarn.lock
+package-lock.json
+sessions

@@ -15,18 +15,18 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {path: '/', component: LatestArticles, mate: { keepAlive: true }},
-        {path: '/archives', component: Archiver},
-        {path: '/tag', component: Tag},
-        {path: '/about', component: About},
-        {path: '/articlesDetails:id', name: 'articlesDetails', component: ArticlesDetails}
-    ]
+  mode: 'history',
+  routes: [
+    { path: '/', component: LatestArticles, mate: { keepAlive: true } },
+    { path: '/archives', component: Archiver },
+    { path: '/tag', component: Tag },
+    { path: '/about', component: About },
+    { path: '/articlesDetails:id', name: 'articlesDetails', component: ArticlesDetails }
+  ]
 })
 
 new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App)
+  el: '#app',
+  router: router,
+  render: h => h(App)
 })
