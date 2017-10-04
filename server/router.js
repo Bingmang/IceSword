@@ -1,93 +1,21 @@
 let express = require('express')
 let router = express.Router()
-let users = require('./user').items
-let db = require('./db')
+let db = require('./conf').db
+let server = require('.')
 
-let findUser = function (name, password) {
-  return users.find(function (item) {
-    return item.name === name && item.password === password
-  })
-}
 // 登录接口
-router.post('/api/login', function (req, res) {
-  let sess = req.session
-  let user = findUser(req.body.name, req.body.pwd)
-
-  if (user) {
-    req.session.regenerate(function (err) {
-      if (err) {
-        return res.json({ code: 2, msg: '登录失败' })
-      }
-      req.session.loginUser = user.name
-      res.json({ code: 0, msg: '登录成功' })
-    })
-  } else {
-    res.json({ code: 1, msg: '账号或密码错误' })
-  }
-})
+router.post('/api/login', server.api.login)
 // 查询文章列表路由 用于博客前端展示数据不包含草稿内容
-router.get('/api/articleList', function (req, res) {
-  db.Article.find({ state: "publish" }, function (err, docs) {
-    if (err) {
-      console.log('出错' + err)
-      return
-    }
-    res.json(docs)
-  })
-})
+router.get('/api/articleList', server.api.articleList.get)
 // 按标签ID查询文章列表路由 用于博客前端展示数据不包含草稿内容
-router.post('/api/articleList', function (req, res) {
-  db.TagList.find({ _id: req.body.tagId }, function (err, docs) {
-    if (err) {
-      res.status(500).send()
-      return
-    }
-    db.Article.find({ label: docs[0].tagName, state: "publish" }, function (err, docs) {
-      if (err) {
-        res.status(500).send()
-        return
-      }
-      res.json(docs)
-    })
-  })
-})
+router.post('/api/articleList', server.api.articleList.post)
 // 查询文章列表路由 用于博客后端管理系统包含草稿和已发布文章数据
-router.get('/api/admin/articleList', function (req, res) {
-  db.Article.find({}, function (err, docs) {
-    if (err) {
-      console.log('出错' + err)
-      return
-    }
-    res.json(docs)
-  })
-})
+router.get('/api/admin/articleList', server.api.admin.articleList.get)
 // 查询文章列表路由(根据标签返回对应的文章列表) 用于博客后端管理系统包含草稿和已发布文章数据
-router.post('/api/admin/articleList', function (req, res) {
-  db.Article.find({ label: req.body.label }, function (err, docs) {
-    if (err) {
-      console.log('出错' + err)
-      return
-    }
-    res.json(docs)
-  })
-})
+router.post('/api/admin/articleList', server.api.admin.articleList.post)
 // 查询文章详情路由
-router.get('/api/articleDetails/:id', function (req, res) {
-  db.Article.findOne({ _id: req.params.id }, function (err, docs) {
-    if (err) {
-      return
-    }
-    res.send(docs)
-  })
-})
-router.post('/api/articleDetails', function (req, res) {
-  db.Article.findOne({ _id: req.body.id }, function (err, docs) {
-    if (err) {
-      return
-    }
-    res.send(docs)
-  })
-})
+router.get('/api/articleDetails/:id', server.api.articleDetails.get)
+router.post('/api/articleDetails', server.api.articleDetails.post)
 // 文章保存路由
 router.post('/api/saveArticle', function (req, res) {
   new db.Article(req.body.articleInformation).save(function (error) {
