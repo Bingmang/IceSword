@@ -1,7 +1,9 @@
 module.exports = {
 
 get: function (req, res) {
-  db.Article.find({ state: "publish" }, function (err, docs) {
+  db.Article.find({
+    state: 'publish',
+  }, (err, docs) => {
     if (err) {
       console.log('出错' + err)
       return
@@ -11,12 +13,17 @@ get: function (req, res) {
 },
 
 post: function (req, res) {
-  db.TagList.find({ _id: req.body.tagId }, function (err, docs) {
+  db.TagList.find({
+    _id: req.body.tagId,
+  }, (err, docs) => {
     if (err) {
       res.status(500).send()
       return
     }
-    db.Article.find({ label: docs[0].tagName, state: "publish" }, function (err, docs) {
+    db.Article.find({
+      label: docs[0].tagName,
+      state: 'publish',
+    }, (err, docs) => {
       if (err) {
         res.status(500).send()
         return

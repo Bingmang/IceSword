@@ -3,10 +3,12 @@
  */
 
 module.exports = function (req, res) {
-  db.TagList.find({}, function (err, docs) {
-    if (err) return
+  db.TagList.find({}, (err, docs) => {
+    if (err) {
+      return
+    }
     let isExist = false
-    docs.forEach(function (item) {
+    docs.forEach((item) => {
       if (item.tagName == req.body.tagList.tagName) {
         isExist = true
       }
@@ -14,8 +16,8 @@ module.exports = function (req, res) {
     if (isExist) {
       res.json({ error: true, msg: '标签已存在' })
     } else {
-      new db.TagList(req.body.tagList).save(function (error) {
-        if (error) {
+      new db.TagList(req.body.tagList).save((err) => {
+        if (err) {
           res.send('保存失败')
           return
         }

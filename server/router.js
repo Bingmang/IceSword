@@ -18,20 +18,16 @@ router.get('/api/articleDetails/:id', server.api.articleDetails.get)
 router.post('/api/articleDetails', server.api.articleDetails.post)
 // 文章保存路由
 router.post('/api/saveArticle', server.api.saveArticle)
-
 // 文章更新路由
 router.post('/api/updateArticle', server.api.updateArticle)
-
 // 删除文章
 router.post('/api/delect/article', server.api.delect.article)
-
 // 文章标签查询路由
 router.get('/api/getArticleLabel', server.api.getArticleLabel)
 // 文章标签保存路由
 router.post('/api/saveArticleLabel', server.api.saveArticleLabel)
 // 博客信息路由
 router.post('/api/save/personalInformation', server.api.save.personalInformation)
-
 router.get('/api/personalInformation', server.api.personalInformation)
 
 module.exports = router

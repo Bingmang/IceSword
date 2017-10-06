@@ -8,7 +8,7 @@ module.exports = function (req, res) {
   let user = common.findUser(req.body.name, req.body.pwd)
 
   if (user) {
-    req.session.regenerate(function (err) {
+    req.session.regenerate((err) => {
       if (err) {
         return res.json({ code: 2, msg: '登录失败' })
       }

@@ -2,7 +2,7 @@
   <div id="tag">
     <h3>标签</h3>
     <div class="tag-wrap">
-      <span v-for="item in tagList">{{item.tagName}}</span>
+      <span v-for="item in tagList">{{item.tagName}} ({{item.tagNumber}})</span>
     </div>
   </div>
 </template>

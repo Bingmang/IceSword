@@ -3,7 +3,7 @@
  */
 
 module.exports = function (req, res) {
-  db.Article.find({ _id: req.body.obj._id }, function (err, docs) {
+  db.Article.find({ _id: req.body.obj._id }, (err, docs) => {
     if (err) {
       return
     }
@@ -13,7 +13,7 @@ module.exports = function (req, res) {
     docs[0].date = docs[0].date
     docs[0].state = req.body.obj.state
     docs[0].label = req.body.obj.label
-    db.Article(docs[0]).save(function (err) {
+    db.Article(docs[0]).save((err) => {
       if (err) {
         res.status(500).send()
         return

@@ -1,7 +1,7 @@
 module.exports = {
 
 get: function (req, res) {
-  db.Article.find({}, function (err, docs) {
+  db.Article.find({}, (err, docs) => {
     if (err) {
       console.log('出错' + err)
       return
@@ -11,7 +11,7 @@ get: function (req, res) {
 },
 
 post: function (req, res) {
-  db.Article.find({ label: req.body.label }, function (err, docs) {
+  db.Article.find({ label: req.body.label }, (err, docs) => {
     if (err) {
       console.log('出错' + err)
       return

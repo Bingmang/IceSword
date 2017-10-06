@@ -3,20 +3,22 @@
  */
 
 module.exports = function (req, res) {
-  new db.Article(req.body.articleInformation).save(function (error) {
-    if (error) {
+  new db.Article(req.body.articleInformation).save((err) => {
+    if (err) {
       res.status(500).send()
       return
     }
     if (req.body.articleInformation.state != 'draft') {
-      db.Article.find({ label: req.body.articleInformation.label }, function (err, ArticleList) {
+      db.Article.find({ label: req.body.articleInformation.label }, (err, ArticleList) => {
         if (err) {
           return
         }
-        db.TagList.find({ tagName: req.body.articleInformation.label }, function (err, docs) {
+        db.TagList.find({ tagName: req.body.articleInformation.label }, (err, docs) => {
           if (docs.length > 0) {
             docs[0].tagNumber = ArticleList.length
-            db.TagList(docs[0]).save(function (error) { })
+            db.TagList(docs[0]).save((err) => {
+              console.error(err)
+            })
           }
         })
       })

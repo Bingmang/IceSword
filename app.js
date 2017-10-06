@@ -11,7 +11,7 @@ let app = express()
 
 let resolve = file => path.resolve(__dirname, file)
 app.use(compression())
-app.use('/dist', express.static(resolve('./dist')))
+app.use('/.dist', express.static(resolve('./.dist')))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -32,7 +32,7 @@ app.use(session({
 app.use(router)
 
 // 后台管理页
-app.get('/admin', function (req, res) {
+app.get('/admin', (req, res) => {
   let sess = req.session
   let loginUser = sess.loginUser
   let isLogined = !!loginUser
@@ -48,11 +48,17 @@ app.get('/admin', function (req, res) {
 })
 
 // 博客首页
-app.get('*', function (req, res) {
+app.get('*', (req, res) => {
   let html = fs.readFileSync(resolve('./' + 'index.html'), 'utf-8')
   res.send(html)
 })
 
-app.listen(process.env.PORT || 7000, function () {
-  console.log("应用实例，访问地址为 localhost:7000")
+let port = process.env.PORT || 19031
+
+app.listen(port, (err) => {
+  if (err) {
+    console.error(err)
+    process.exit(1)
+  }
+  console.log('Listening on http://localhost:' + port)
 })

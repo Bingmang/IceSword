@@ -37,8 +37,10 @@ module.exports = function (req, res) {
   //         res.json(resultTagList)
   //     })
   // })
-  db.TagList.find({}, function (err, docs) {
-    if (err) return
+  db.TagList.find({}, (err, docs) => {
+    if (err) {
+      return
+    }
     res.json(docs)
   })
 }
