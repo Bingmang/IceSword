@@ -34,11 +34,11 @@ export default {
         }
         var gitment = new Gitment({
           id: binding.value,
-          owner: 'linguowei',
-          repo: 'blog-comment',
+          owner: 'Bingmang',
+          repo: 'IceSword-Comments',
           oauth: {
-            client_id: 'd7c66377574e5e6acfe5',
-            client_secret: '7c52883d0368ee18a496491b9695d506f6890ccf',
+            client_id: '32a333481233d96d3fdd',
+            client_secret: '4bf96ae62952f9916fb700cd3a5e894d295de43c',
           },
           theme: myTheme
         })
